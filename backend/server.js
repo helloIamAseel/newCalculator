@@ -1,23 +1,15 @@
+import express from "express";
 import cors from "cors";
-const express = require("express");
-const cors = require("cors");
-const db = require("./db");
+import db from "./db.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
-app.use(cors({
-  origin: "*"
-}));
-
 
 app.post("/calculation", (req, res) => {
-
   const { userId, equation, result } = req.body;
-
-  const sql =
-    "INSERT INTO calculations (user_id, equation, result) VALUES (?, ?, ?)";
+  const sql = "INSERT INTO calculations (user_id, equation, result) VALUES (?, ?, ?)";
 
   db.query(sql, [userId, equation, result], (err) => {
     if (err) {
@@ -27,16 +19,11 @@ app.post("/calculation", (req, res) => {
       res.send("Saved");
     }
   });
-
 });
 
-
 app.get("/history/:userId", (req, res) => {
-
   const userId = req.params.userId;
-
-  const sql =
-    "SELECT equation, result FROM calculations WHERE user_id = ? ORDER BY created_at DESC";
+  const sql = "SELECT equation, result FROM calculations WHERE user_id = ? ORDER BY created_at DESC";
 
   db.query(sql, [userId], (err, results) => {
     if (err) {
@@ -45,9 +32,7 @@ app.get("/history/:userId", (req, res) => {
       res.json(results);
     }
   });
-
 });
-
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
