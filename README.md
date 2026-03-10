@@ -25,8 +25,9 @@ A web-based calculator built with **Svelte**,and **Tailwind CSS** for the fronte
 - Node.js + Express  
 - MySQL (`mysql2`)  
 - CORS support for frontend-backend communication
-- render
+
 
 **Other Tools:**  
 - Vite for dev server and build  
-- Netlify for deployment
+- Vercel for frontend deployment
+- Railway for database and backend deployment
